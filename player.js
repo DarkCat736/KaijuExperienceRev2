@@ -1,5 +1,5 @@
-class PlayerObject {
-  constructor(spritesheetPath, xCells, yCells, cellSize, {size = 50, moveSize = 100, framesPerCell = 5, renderEngineInputFunction = null} = {}) {
+let playerObject = {
+  init: async function(spritesheetPath, xCells, yCells, cellSize, {size = 50, moveSize = 100, framesPerCell = 5, renderEngineInputFunction = null, customRenderFunction = null, startX = 0, startY = 0, mass = 5} = {}) {
     this.spritesheetPath = spritesheetPath;
     this.xCells = xCells;
     this.yCells = yCells;
@@ -13,14 +13,37 @@ class PlayerObject {
     this.moveSize = moveSize;
     this.physicsObject = null;
     this.renderEngineInputFunction = renderEngineInputFunction;
-  }
 
-  moveX (direction) {
+    this.spritesheet = await loadImage(this.spritesheetPath);
+
+    renderEngine.loadSpritesheet(
+        this.spritesheet,
+        this.xCells,
+        this.yCells,
+        this.cellSize,
+        this.spriteImages
+    );
+
+    this.physicsObject = new Particle({
+      startX: startX,
+      startY: startY,
+      mass: mass,
+      renderObject: this,
+      renderFunction: function() {
+        this.renderObject.xPos = this.position.x - 64;
+        this.renderObject.yPos = this.position.y - 100;
+      }
+    });
+
+    if (customRenderFunction != null) {
+      this.physicsObject.render = customRenderFunction;
+    }
+  },
+  moveX: function(direction) {
     //no
     //this.physicsObject.physics.keyboardForce(direction * this.moveSize, 1);
-  }
-
-  moveY (direction) {
+  },
+  moveY: function(direction) {
     if (direction < 1) {
       if (this.physicsObject.position.y < height) {
         return;
@@ -28,9 +51,8 @@ class PlayerObject {
       //audioEngine.sounds.jump.play();
     }
     this.physicsObject.physics.keyboardForce(1, direction * this.moveSize);
-  }
-
-  update() {
+  },
+  update: function() {
     keyEngine.update(this);
     if (this.renderEngineInputFunction != null) {
       renderEngine.renderSprite(this, this.renderEngineInputFunction);
@@ -38,9 +60,8 @@ class PlayerObject {
     }
 
     renderEngine.renderSprite(this);
-  }
-
-  updatePlusPhysics() {
+  },
+  updatePlusPhysics: function() {
     this.update();
 
     //ENVIRONMENTAL FORCES
@@ -54,33 +75,6 @@ class PlayerObject {
     this.physicsObject.physics.calcVelocity();
     this.physicsObject.physics.calcMotion();
     this.physicsObject.render();
-  }
-
-  async init(customRenderFunction = null) {
-    this.spritesheet = await loadImage(this.spritesheetPath);
-
-    renderEngine.loadSpritesheet(
-        this.spritesheet,
-        this.xCells,
-        this.yCells,
-        this.cellSize,
-        this.spriteImages
-    );
-
-    this.physicsObject = new Particle({
-      startX: 120,
-      startY: height/2,
-      mass: 5,
-      renderObject: this,
-      renderFunction: function() {
-        this.renderObject.xPos = this.position.x - 64;
-        this.renderObject.yPos = this.position.y - 100;
-      }
-    });
-
-    if (customRenderFunction != null) {
-      this.physicsObject.render = customRenderFunction;
-    }
   }
 }
 

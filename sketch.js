@@ -2,8 +2,6 @@ const TIME_STEP = 0.1;
 const DRAG_AMOUNT = 10;
 const GRAVITY = 98;
 
-let player = new PlayerObject("./walk.png", 5, 1, 416, {size: 100});
-
 async function setup() {
     createCanvas(400, 400);
 
@@ -18,10 +16,19 @@ async function setup() {
     //audioEngine.sounds.bgMusic.play();
 
 
-    await player.init(
-        function() {
-            this.renderObject.xPos = 120 - 64;
-            this.renderObject.yPos = this.position.y - 100;
+    await playerObject.init(
+        "./walk.png",
+        5,
+        1,
+        416,
+        {
+            size: 100,
+            startX: 120,
+            startY: height / 2,
+            customRenderFunction: function () {
+                this.renderObject.xPos = 120 - 64;
+                this.renderObject.yPos = this.position.y - 100;
+            }
         }
     );
 
@@ -30,5 +37,5 @@ async function setup() {
 
 function draw() {
     background(0);
-    player.updatePlusPhysics();
+    playerObject.updatePlusPhysics();
 }

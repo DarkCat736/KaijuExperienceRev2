@@ -8,12 +8,6 @@ class Physics {
     this.particle.force.add(new p5.Vector(0, GRAVITY));
   }
 
-  mouseForce() {
-    if (mouseIsPressed) {
-      this.particle.force.add(p5.Vector.mult(new p5.Vector(mouseX, mouseY).sub(this.particle.position), 1));
-    }
-  }
-
   keyboardForce(x, y) {
     this.particle.force.add(p5.Vector.mult(new p5.Vector(x, y)));
   }
@@ -41,10 +35,6 @@ class Physics {
       this.particle.force.x += -this.particle.momentum.x - GRAVITY;
       this.particle.force.x += -(this.particle.position.x - 0) * 500;
     }
-  }
-
-  randomForce(min, max) {
-    this.particle.force.add(new p5.Vector(random(min, max), random(min, max)));
   }
 
   airDrag(mag = 10) {
