@@ -38,5 +38,11 @@ let renderEngine = {
         );
       }
     }
+  },
+  staticImages: [],
+  loadStaticImages: async function() {
+    //CACTUS
+    this.staticImages.push(await loadImage("./cactus.png"));
+    this.static_CACTUS = this.staticImages[0];
   }
 };

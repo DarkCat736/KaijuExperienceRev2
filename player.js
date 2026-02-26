@@ -13,6 +13,7 @@ let playerObject = {
     this.moveSize = moveSize;
     this.physicsObject = null;
     this.renderEngineInputFunction = renderEngineInputFunction;
+    this.jumpEnable = true;
 
     this.spritesheet = await loadImage(this.spritesheetPath);
 
@@ -35,6 +36,8 @@ let playerObject = {
       }
     });
 
+    this.collider = new RectCollider(10, 50, 70, 50, true);
+
     if (customRenderFunction != null) {
       this.physicsObject.render = customRenderFunction;
     }
@@ -45,14 +48,24 @@ let playerObject = {
   },
   moveY: function(direction) {
     if (direction < 1) {
-      if (this.physicsObject.position.y < height) {
+      if (this.physicsObject.position.y >= height) {
+        this.jumpEnable = true;
+      }
+
+      if (!this.jumpEnable) {
         return;
       }
       //audioEngine.sounds.jump.play();
     }
     this.physicsObject.physics.keyboardForce(1, direction * this.moveSize);
+    if (direction < 1) {
+      this.jumpEnable = false;
+    }
+
   },
   update: function() {
+    this.collider.tick(new p5.Vector(this.xPos, this.yPos));
+
     keyEngine.update(this);
     if (this.renderEngineInputFunction != null) {
       renderEngine.renderSprite(this, this.renderEngineInputFunction);

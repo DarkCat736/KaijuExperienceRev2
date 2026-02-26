@@ -32,10 +32,13 @@ async function setup() {
         }
     );
 
+    await renderEngine.loadStaticImages();
+    gameController.init();
+
 }
 
 
 function draw() {
     background(0);
-    playerObject.updatePlusPhysics();
+    gameController.tick();
 }
