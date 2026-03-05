@@ -31,10 +31,14 @@ let gameController = {
     this.cullNPCs();
 
     this.currentGameSpeed += 0.0001;
+
+    this.points += 0.25;
+    text("Points: "+Math.ceil(this.points), width/2, height/20);
   },
   currentGameSpeed: 4,
   cactusObjects: [],
   pterodactylObjects: [],
+  points: 0,
   init: function() {
     // this.cactusObjects.push(new CactusNPC(4));
     // this.pterodactylObjects.push(new PterodactylNPC(4));
@@ -90,5 +94,6 @@ let gameController = {
     this.cactusObjects = [];
     this.pterodactylObjects = [];
     this.currentGameSpeed = 4;
+    this.points = 0;
   }
 };
