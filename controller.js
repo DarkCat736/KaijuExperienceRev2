@@ -14,7 +14,7 @@ let keyEngine = {
     }
 
     if (keyIsDown(DOWN_ARROW)) {
-      playerObject.moveY(1);
+      playerObject.moveY(5);
     }
   }
 };
