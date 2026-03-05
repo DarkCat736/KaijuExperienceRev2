@@ -1,23 +1,17 @@
 const TIME_STEP = 0.1;
 const DRAG_AMOUNT = 50;
 const GRAVITY = 98;
-const COLLIDER_DEBUGGING = true;
-
-let gameStart = false
+const COLLIDER_DEBUGGING = false;
+let gameStart = false;
 async function setup() {
     createCanvas(400, 400);
-    bgMusic.play()
     background(0);
     fill(255);
     splashScreen();
-
+    await audioEngine.loadAllSounds();
     noSmooth();
-
-    //await audioEngine.loadAllSounds();
-
-    //audioEngine.sounds.bgMusic.play();
-
-
+    audioEngine.sounds.bgMusic.play();
+    
     await playerObject.init(
         "./walk.png",
         5,
@@ -63,6 +57,8 @@ function splashScreen() {
         gameStart = true;
         gameController.reset();
         gameController.init();
+        userStartAudio();
+        
     }
 }
 

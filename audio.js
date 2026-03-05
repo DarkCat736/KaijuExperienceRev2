@@ -1,10 +1,12 @@
 let audioEngine = {
-  sounds: {},
+  sounds: {
+    bgMusic: null,
+  },
   loadAllSounds: async function() {
-    let bgMusic = await loadSound("./media/sing a song singyyyy.mp3");
-    bgMusic.loop(true);
+    this.sounds.bgMusic = await loadSound("./media/bgmusic.mp3");
+    this.sounds.bgMusic.loop(true);
 
-    let jumpSnd = await loadSound("./media/Jump.wav");
-    let groundHit = await loadSound("./media/Ground Hit.wav");
+    //let jumpSnd = await loadSound("./media/Jump.wav");
+    //let groundHit = await loadSound("./media/Ground Hit.wav");
   }
 };
