@@ -10,6 +10,7 @@ let keyEngine = {
 
     if (keyIsDown(UP_ARROW    )) {
       playerObject.moveY(-50);
+      //this.sounds.jump.play()
     }
 
     if (keyIsDown(DOWN_ARROW)) {

@@ -1,12 +1,12 @@
 const TIME_STEP = 0.1;
 const DRAG_AMOUNT = 50;
 const GRAVITY = 98;
-const COLLIDER_DEBUGGING = false;
+const COLLIDER_DEBUGGING = true;
 
 let gameStart = false
 async function setup() {
     createCanvas(400, 400);
-
+    bgMusic.play()
     background(0);
     fill(255);
     splashScreen();
@@ -58,8 +58,8 @@ function splashScreen() {
     textSize(20);
     textAlign(CENTER, CENTER)
     text("Welcome to Kaiju Experience!", width/2, height/3)
-    text("Click UP-Arrow to Start\nUse UP-Arrow to Jump\nUse DOWN-Arrow to Fall" , width/2, height/2 );
-    if(keyIsDown(UP_ARROW)){
+    text("Click DOWN-Arrow to Start\nUse UP-Arrow to Jump\nUse DOWN-Arrow to Fall" , width/2, height/2 );
+    if(keyIsDown(DOWN_ARROW)){
         gameStart = true;
         gameController.reset();
         gameController.init();
