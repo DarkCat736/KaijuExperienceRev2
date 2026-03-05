@@ -85,9 +85,10 @@ let gameController = {
     }
   },
   spawnNPC: function() {
-    let time = Math.random(1.500, 5.000)
+    let time = random(3000-(this.currentGameSpeed/200), 4000-(this.currentGameSpeed/200));
     setTimeout(() => {
       this.cactusObjects.push(new CactusNPC(this.currentGameSpeed));
+      this.spawnNPC();
     }, time)
   },
   reset: function() {
