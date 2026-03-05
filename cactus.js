@@ -3,7 +3,7 @@ class CactusNPC {
         this.speed = moveSpeed;
         this.position = new p5.Vector(410, 365);
 
-        this.collider = new RectCollider(5, 0, 25, 35, true);
+        this.collider = new RectCollider(5, 0, 25, 35, COLLIDER_DEBUGGING);
     }
 
     tick() {

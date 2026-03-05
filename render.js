@@ -44,5 +44,11 @@ let renderEngine = {
     //CACTUS
     this.staticImages.push(await loadImage("./cactus.png"));
     this.static_CACTUS = this.staticImages[0];
+
+    this.staticImages.push(await loadImage("./media/pterodactyl.png"));
+    this.static_PTERODACTYL = this.staticImages[1];
+
+    this.staticImages.push(await loadImage("./media/bg.png"));
+    this.static_BG = this.staticImages[2];
   }
 };
