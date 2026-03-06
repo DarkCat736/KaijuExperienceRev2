@@ -1,16 +1,17 @@
 class PterodactylNPC {
     constructor(moveSpeed) {
         this.speed = moveSpeed;
-        this.position = new p5.Vector(410, 330);
+        this.position = new p5.Vector(410, 320);
 
         this.collider = new RectCollider(0, 0, 32, 25, COLLIDER_DEBUGGING);
 
-        this.xCells = 4;
-        this.yCells = 2;
+        this.xCells = 3;
+        this.yCells = 3;
         this.cellSize = 52;
         this.drawIndex = 0;
         this.size = 30;
         this.spriteImages = [];
+        this.framesPerCell = 5;
 
         renderEngine.loadSpritesheet(
             renderEngine.static_PTERODACTYL,
