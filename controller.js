@@ -8,7 +8,7 @@ let keyEngine = {
       playerObject.moveX(1);
     }
 
-    if (keyIsDown(UP_ARROW    )) {
+    if (keyIsDown(UP_ARROW)) {
       playerObject.moveY(-50);
       
     }
@@ -24,6 +24,9 @@ let gameController = {
     image(renderEngine.static_BG, 0, 0, 400, 400);
 
     playerObject.updatePlusPhysics();
+
+    this.spawnNPC.tick();
+
     this.tickNPCs();
 
     this.checkNPCCollisionsWithPlayer();
@@ -42,8 +45,6 @@ let gameController = {
   init: function() {
     // this.cactusObjects.push(new CactusNPC(4));
     // this.pterodactylObjects.push(new PterodactylNPC(4));
-
-    this.spawnNPC();
   },
   checkNPCCollisionsWithPlayer: function() {
     for (let i = 0; i < this.cactusObjects.length; i++) {
@@ -72,7 +73,6 @@ let gameController = {
     for (let i = 0; i < this.cactusObjects.length; i++) {
       if(this.cactusObjects[i].position.x < -10) {
         this.cactusObjects.splice(i, 1);
-        this.spawnNPC();
         //this.cactusObjects.push(new CactusNPC(4));
       }
     }
@@ -84,12 +84,27 @@ let gameController = {
       }
     }
   },
-  spawnNPC: function() {
-    let time = random(3000-(this.currentGameSpeed/200), 4000-(this.currentGameSpeed/200));
-    setTimeout(() => {
-      this.cactusObjects.push(new CactusNPC(this.currentGameSpeed));
-      this.spawnNPC();
-    }, time)
+  spawnNPC:  {
+    tick: function() {
+      this.decideSpawnTime();
+      this.ticksSinceLastSpawn++;
+      this.spawn();
+    },
+    ticksSinceLastSpawn: 0,
+    spawnOnTick: 0,
+    decideSpawnTime: function() {
+      if (this.ticksSinceLastSpawn == 0) {
+        this.spawnOnTick = Math.ceil(random(70, 130));
+        console.log("spawn will happen in "+this.spawnOnTick+" ticks.")
+      }
+    },
+    spawn: function() {
+      if (this.ticksSinceLastSpawn == this.spawnOnTick) {
+        console.log("spawning npc at speed "+gameController.currentGameSpeed);
+        gameController.cactusObjects.push(new CactusNPC(gameController.currentGameSpeed));
+        this.ticksSinceLastSpawn = 0;
+      }
+    }
   },
   reset: function() {
     this.cactusObjects = [];
