@@ -57,6 +57,7 @@ let gameController = {
     for (let i = 0; i < this.pterodactylObjects.length; i++) {
       if (this.pterodactylObjects[i].collider.checkCollision(playerObject.collider)) {
         console.log("hit pterodactyl");
+        lossScreen();
       }
     }
   },
@@ -87,22 +88,27 @@ let gameController = {
   spawnNPC:  {
     tick: function() {
       this.decideSpawnTime();
-      this.ticksSinceLastSpawn++;
+      this.ticksSinceLastNPCSpawn++;
+      this.ticksSinceLastPterodactylSpawn++;
       this.spawn();
     },
-    ticksSinceLastSpawn: 0,
-    spawnOnTick: 0,
+    ticksSinceLastNPCSpawn: 0,
+    spawnNPCOnTick: 0,
     decideSpawnTime: function() {
-      if (this.ticksSinceLastSpawn == 0) {
-        this.spawnOnTick = Math.ceil(random(70, 130));
-        console.log("spawn will happen in "+this.spawnOnTick+" ticks.")
+      if (this.ticksSinceLastNPCSpawn == 0) {
+        this.spawnNPCOnTick = Math.ceil(random(70, 130));
+        console.log("spawn will happen in "+this.spawnNPCOnTick+" ticks.")
       }
     },
     spawn: function() {
-      if (this.ticksSinceLastSpawn == this.spawnOnTick) {
+      if (this.ticksSinceLastNPCSpawn == this.spawnNPCOnTick) {
         console.log("spawning npc at speed "+gameController.currentGameSpeed);
-        gameController.cactusObjects.push(new CactusNPC(gameController.currentGameSpeed));
-        this.ticksSinceLastSpawn = 0;
+        if (Math.ceil(random(0.5, 9)) <= 3) {
+          gameController.pterodactylObjects.push(new PterodactylNPC(gameController.currentGameSpeed));
+        } else {
+          gameController.cactusObjects.push(new CactusNPC(gameController.currentGameSpeed));
+        }
+        this.ticksSinceLastNPCSpawn = 0;
       }
     }
   },

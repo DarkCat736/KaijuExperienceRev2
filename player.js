@@ -36,7 +36,7 @@ let playerObject = {
       }
     });
 
-    this.collider = new RectCollider(30, 50, 43, 50, COLLIDER_DEBUGGING);
+    this.collider = new RectCollider(40, 60, 25, 30, COLLIDER_DEBUGGING);
 
     if (customRenderFunction != null) {
       this.physicsObject.render = customRenderFunction;

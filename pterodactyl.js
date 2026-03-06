@@ -1,7 +1,7 @@
 class PterodactylNPC {
     constructor(moveSpeed) {
         this.speed = moveSpeed;
-        this.position = new p5.Vector(410, 300);
+        this.position = new p5.Vector(410, 330);
 
         this.collider = new RectCollider(0, 0, 32, 25, COLLIDER_DEBUGGING);
 
