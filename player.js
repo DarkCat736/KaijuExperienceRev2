@@ -50,12 +50,14 @@ let playerObject = {
     if (direction < 1) {
       if (this.physicsObject.position.y >= height) {
         this.jumpEnable = true;
+        if (this.jumpEnable === true) {
+          audioEngine.sounds.jumpSnd.play();
+        };
       }
 
       if (!this.jumpEnable) {
         return;
       }
-      //audioEngine.sounds.jump.play();
     }
     this.physicsObject.physics.keyboardForce(1, direction * this.moveSize);
     if (direction < 1) {
