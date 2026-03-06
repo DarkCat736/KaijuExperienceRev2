@@ -33,7 +33,7 @@ let gameController = {
 
     this.cullNPCs();
 
-    this.currentGameSpeed += 0.0001;
+    this.currentGameSpeed += 0.001;
 
     this.points += 0.25;
     text("Points: "+Math.ceil(this.points), width/2, height/20);

@@ -51,7 +51,9 @@ function splashScreen() {
     //fill(83);
     textSize(20);
     textAlign(CENTER, CENTER)
-    text("Welcome to Kaiju Experience!", width/2, height/3)
+    textFont('Pacifico');
+    text("Welcome to Kaiju Experience!", width/2, height/3);
+    textFont('Courier New');
     text("Click DOWN-Arrow to Start\nUse UP-Arrow to Jump\nUse DOWN-Arrow to Fall" , width/2, height/2 );
     if(keyIsDown(DOWN_ARROW)){
         gameStart = true;
@@ -65,6 +67,7 @@ function splashScreen() {
 function lossScreen() {
     gameStart = false;
     //fill(83);
+    textFont('Courier New');
     textSize(20);
     textAlign(CENTER, CENTER);
     text("You lost.", width/2, height/6);
