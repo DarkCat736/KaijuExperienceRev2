@@ -68,4 +68,7 @@ function lossScreen() {
     textSize(20);
     textAlign(CENTER, CENTER);
     text("You lost.", width/2, height/6);
+    if (gameStart === false) {
+    audioEngine.sounds.deathSnd.play();
+    }
 }

@@ -16,8 +16,8 @@ class Physics {
     if (this.particle.position.y >= height) {
       this.particle.force.y += -this.particle.momentum.y - GRAVITY;
       this.particle.force.y += -(this.particle.position.y - height) * 500;
-      if (this.particle.velocity.y > 0.5) {
-        //audioEngine.sounds.groundHit.play();
+      if (this.particle.velocity.y > 1.5) {
+        audioEngine.sounds.groundSnd.play();
       }
     }
 
